@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Main Game Container -->
+    <div class="game-container">
+        <!-- Level and Prestige Display -->
+        <div class="progress-bar">
+            <p>Level: <span id="level">1</span></p>
+            <button id="prestigeBtn" onclick="prestige()" class="prestige-disabled">
+                Prestige: <span id="prestigeLevel">0</span>
+            </button>
+            <div class="level-progress">
+                <div id="progressFill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Game Title -->
+        <h1>Cookie Clicker!</h1>
+
+        <!-- Cookie Image -->
+        <img id="cookie" src="cookie.png" alt="Cookie" onclick="clickCookie()">
+
+        <!-- Score Display -->
+        <p>Score: <span id="score">0</span></p>
+
+        <!-- Offline Progress Display -->
+        <div id="offlineProgressContainer" style="display: none;">
+            <p>You were away for <span id="timeAway">0</span> seconds and earned <span id="offlinePoints">0</span> points!</p>
+        </div>
+
+        <!-- Upgrades Section -->
+        <button onclick="buyUpgrade('autoTapper')">Buy Auto-Tapper (Cost: 10)</button>
+        <button onclick="buyUpgrade('multiplier')">Buy Multiplier (Cost: 50)</button>
+        <button onclick="buyUpgrade('grandma')">Buy Grandma (Cost: 100)</button>
+
+        <!-- Power-Ups Section -->
+        <div id="powerUpsContainer" style="display: none;">
+            <h2>Power-Ups</h2>
+            <button id="doublePointsBtn" onclick="activatePowerUp('doublePoints')" disabled>
+                Activate x2 Points (Cost: 75)
+            </button>
+            <button id="frenzyModeBtn" onclick="activatePowerUp('frenzyMode')" disabled>
+                Activate Frenzy Mode (Cost: 150)
+            </button>
+            <p id="countdown" style="display: none;">Power-Up Ends In: <span id="timer">20</span>s</p>
+        </div>
+
+        <!-- Permanent Upgrades Section -->
+        <div id="permanentUpgradesContainer" style="display: none;">
+            <h2>Permanent Upgrades</h2>
+            <p>Prestige Bonus: +<span id="prestigeBonus">0</span>% multiplier</p>
+        </div>
+
+        <!-- Randomized Rewards Section -->
+        <div id="randomRewardsContainer" style="display: none;">
+            <h2>Random Rewards</h2>
+            <p>Click the Golden Cookie when it appears for a surprise reward!</p>
+        </div>
+
+        <!-- Daily Rewards Section -->
+        <div id="dailyRewardsContainer" style="display: none;">
+            <h2>Daily Rewards</h2>
+            <button onclick="claimDailyReward()">Claim Daily Reward</button>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="achievements">
+            <h2>Achievements</h2>
+            <ul>
+                <li id="achievement1">Score 100 points</li>
+                <li id="achievement2">Buy 3 upgrades</li>
+                <li id="achievement3">Reach 1000 points</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+</html>

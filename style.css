@@ -1,0 +1,300 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4); /* Gradient for polish */
+    font-family: 'Arial', sans-serif;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.game-container {
+    text-align: center;
+    max-width: 400px;
+    width: 95%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 20px; /* Rounded corners for a modern look */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    max-height: 90vh;
+    position: relative; /* For positioning elements like countdown */
+}
+
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add depth to the title */
+}
+
+#cookie {
+    width: 150px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); /* Golden glow */
+    animation: pulse-cookie 2s infinite alternate; /* Add pulsing effect */
+}
+
+@keyframes pulse-cookie {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+#cookie:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 1); /* Brighter glow on hover */
+}
+
+#cookie:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6); /* Dimmer glow when clicked */
+}
+
+/* Level and Prestige Display */
+.progress-bar {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.progress-bar p {
+    font-size: 16px;
+    color: #333;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+button#prestigeBtn {
+    float: right;
+    background: #ccc;
+    color: #666;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+    transition: background 0.3s ease;
+}
+
+button#prestigeBtn:not(.prestige-disabled) {
+    background: linear-gradient(135deg, #ff5722, #ff9a9e); /* Vibrant gradient for unlocked prestige */
+    color: #fff;
+    cursor: pointer;
+}
+
+button#prestigeBtn:not(.prestige-disabled):hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.level-progress {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffcc00, #ff5722); /* Vibrant gradient for progress */
+    transition: width 0.3s ease; /* Smooth animation for progress bar */
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #ffcc00, #ff9a9e); /* Gradient for buttons */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #fff; /* White text for contrast */
+    font-weight: bold;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+}
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Smaller shadow when clicked */
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    color: #666; /* Grayed-out text for disabled buttons */
+}
+
+/* Offline Progress Display */
+#offlineProgressContainer {
+    margin-top: 20px;
+    text-align: center;
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Hidden by default */
+}
+
+#offlineProgressContainer p {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Power-Ups Section */
+#powerUpsContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#powerUpsContainer h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #ff5722; /* Vibrant orange */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Add depth to the heading */
+}
+
+/* Countdown Timer (for power-ups) */
+#countdown {
+    font-size: 18px;
+    color: #ff5722;
+    margin-top: 10px;
+    font-weight: bold;
+    animation: pulse 1s infinite alternate;
+}
+
+/* Pulse Animation for Countdown */
+@keyframes pulse {
+    0% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* Permanent Upgrades Section */
+#permanentUpgradesContainer {
+    margin-top: 20px;
+    text-align: center;
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Hidden by default */
+}
+
+#permanentUpgradesContainer h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #4caf50; /* Green for rewards */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Add depth to the heading */
+}
+
+#permanentUpgradesContainer p {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Random Rewards Section */
+#randomRewardsContainer {
+    margin-top: 20px;
+    text-align: center;
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Hidden by default */
+}
+
+#randomRewardsContainer h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #ff5722; /* Vibrant orange */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Add depth to the heading */
+}
+
+#randomRewardsContainer p {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Achievements Section */
+.achievements {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.achievements h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #4caf50; /* Green for achievements */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Add depth to the heading */
+}
+
+.achievements ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.achievements li {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+.achievements li.completed {
+    color: #4caf50;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Add depth to completed achievements */
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    #cookie {
+        width: 120px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .achievements li {
+        font-size: 14px;
+    }
+}
