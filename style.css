@@ -298,3 +298,31 @@ button:disabled {
         font-size: 14px;
     }
 }
+
+/* Additional Styles for PWA Compatibility */
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for better UX */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Fallback background for PWAs */
+    color: #333;
+}
+
+/* App Icons */
+.icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 10px auto;
+    display: block;
+}
+
+/* Accessibility Enhancements */
+button:focus,
+button:hover {
+    outline: 2px solid #ffcc00; /* Highlight buttons for accessibility */
+    outline-offset: 2px;
+}
