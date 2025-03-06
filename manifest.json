@@ -1,0 +1,36 @@
+{
+    "short_name": "Cookie Clicker",
+    "name": "Cookie Clicker Game",
+    "icons": [
+        {
+            "src": "icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "icon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffcc00",
+    "description": "A fun and addictive Cookie Clicker game! Click the cookie, earn points, and unlock upgrades.",
+    "orientation": "portrait",
+    "scope": "/",
+    "categories": ["games", "entertainment"],
+    "screenshots": [
+        {
+            "src": "screenshot1.png",
+            "type": "image/png",
+            "sizes": "640x360"
+        },
+        {
+            "src": "screenshot2.png",
+            "type": "image/png",
+            "sizes": "640x360"
+        }
+    ]
+}
