@@ -12,11 +12,18 @@ var level = 1; // Current level
 var prestigeLevel = 0; // Current prestige level
 var pointsToNextLevel = 999; // Points required to level up
 
+// Offline Progress Tracking
+var lastLoginDate = null; // Tracks the last login date
+const OFFLINE_POINTS_PER_SECOND = 1; // Points earned per second while offline
+
 // DOM Elements
 const levelDisplay = document.getElementById('level');
 const prestigeBtn = document.getElementById('prestigeBtn');
 const prestigeLevelDisplay = document.getElementById('prestigeLevel');
 const progressFill = document.getElementById('progressFill');
+const offlineProgressContainer = document.getElementById('offlineProgressContainer');
+const timeAwayElement = document.getElementById('timeAway');
+const offlinePointsElement = document.getElementById('offlinePoints');
 
 // Auto-tapper and Grandma points run every second
 setInterval(() => {
@@ -27,6 +34,70 @@ setInterval(() => {
     checkLevelUp();
 }, 1000);
 
+// Save Game State to Local Storage
+function saveGameState() {
+    const gameState = {
+        totalScore,
+        score,
+        autoTappers,
+        baseMultiplier,
+        grandmas,
+        totalUpgrades,
+        level,
+        prestigeLevel,
+        lastLoginDate: new Date().toDateString(),
+    };
+    localStorage.setItem('cookieClickerGameState', JSON.stringify(gameState));
+}
+
+// Load Game State from Local Storage
+function loadGameState() {
+    const savedState = localStorage.getItem('cookieClickerGameState');
+    if (savedState) {
+        const gameState = JSON.parse(savedState);
+        totalScore = gameState.totalScore || 0;
+        score = gameState.score || 0;
+        autoTappers = gameState.autoTappers || 0;
+        baseMultiplier = gameState.baseMultiplier || 1;
+        grandmas = gameState.grandmas || 0;
+        totalUpgrades = gameState.totalUpgrades || 0;
+        level = gameState.level || 1;
+        prestigeLevel = gameState.prestigeLevel || 0;
+        lastLoginDate = gameState.lastLoginDate;
+
+        // Calculate offline progress
+        calculateOfflineProgress();
+    }
+}
+
+// Calculate Offline Progress
+function calculateOfflineProgress() {
+    const today = new Date().toDateString();
+    if (lastLoginDate && lastLoginDate !== today) {
+        const lastLoginTime = new Date(lastLoginDate).getTime();
+        const currentTime = new Date().getTime();
+        const timeAwayInSeconds = Math.floor((currentTime - lastLoginTime) / 1000);
+
+        const offlinePoints = timeAwayInSeconds * OFFLINE_POINTS_PER_SECOND;
+        totalScore += offlinePoints;
+
+        // Update UI for offline progress
+        offlineProgressContainer.style.display = 'block';
+        timeAwayElement.textContent = timeAwayInSeconds;
+        offlinePointsElement.textContent = offlinePoints;
+
+        alert(`You were away for ${timeAwayInSeconds} seconds and earned ${offlinePoints} points!`);
+    }
+}
+
+// Initialize Game
+function initializeGame() {
+    loadGameState();
+    updateScoreDisplay();
+    updateLevelDisplay();
+}
+
+// Click Cookie Function
 function clickCookie() {
     let pointsToAdd = baseMultiplier;
 
@@ -49,12 +120,17 @@ function clickCookie() {
     setTimeout(() => {
         cookie.classList.remove('bounce');
     }, 300); // Remove the class after the animation ends
+
+    // Save game state after each click
+    saveGameState();
 }
 
+// Update Score Display
 function updateScoreDisplay() {
     document.getElementById('score').textContent = Math.floor(totalScore);
 }
 
+// Check Level Up
 function checkLevelUp() {
     if (score >= pointsToNextLevel) {
         // Deduct points needed to level up
@@ -77,11 +153,13 @@ function checkLevelUp() {
     progressFill.style.width = `${progressPercentage}%`;
 }
 
+// Update Level Display
 function updateLevelDisplay() {
     levelDisplay.textContent = level;
     prestigeLevelDisplay.textContent = prestigeLevel;
 }
 
+// Buy Upgrade Function
 function buyUpgrade(upgradeType) {
     if (upgradeType === 'autoTapper') {
         const cost = 10;
@@ -115,8 +193,10 @@ function buyUpgrade(upgradeType) {
         }
     }
     updateScoreDisplay();
+    saveGameState();
 }
 
+// Activate Power-Up Function
 function activatePowerUp(powerUpType) {
     if (powerUpActive) {
         alert("A power-up is already active! Wait for it to finish.");
@@ -143,8 +223,10 @@ function activatePowerUp(powerUpType) {
         }
     }
     updateScoreDisplay();
+    saveGameState();
 }
 
+// Activate Temporary Power-Up
 function activateTemporaryPowerUp(duration) {
     powerUpActive = true;
     countdownDisplay.style.display = 'block';
@@ -163,6 +245,7 @@ function activateTemporaryPowerUp(duration) {
     }, 1000);
 }
 
+// Activate Frenzy Mode
 function activateFrenzyMode(duration) {
     powerUpActive = true;
     countdownDisplay.style.display = 'block';
@@ -187,6 +270,7 @@ function activateFrenzyMode(duration) {
     }, 1000);
 }
 
+// Prestige Function
 function prestige() {
     if (level < 9) {
         alert("You need to reach Level 9 to Prestige!");
@@ -210,8 +294,12 @@ function prestige() {
     updateScoreDisplay();
     updateLevelDisplay();
     progressFill.style.width = '0%';
+
+    // Save game state after prestige
+    saveGameState();
 }
 
+// Claim Daily Reward Function
 function claimDailyReward() {
     const today = new Date().toDateString();
     if (lastLoginDate !== today) {
@@ -222,8 +310,10 @@ function claimDailyReward() {
     } else {
         alert("You've already claimed your daily reward today!");
     }
+    saveGameState();
 }
 
+// Check Achievements
 function checkAchievements() {
     const achievement1 = document.getElementById('achievement1');
     const achievement2 = document.getElementById('achievement2');
@@ -252,3 +342,6 @@ function checkAchievements() {
 setInterval(() => {
     checkAchievements();
 }, 1000);
+
+// Initialize the game when the page loads
+window.onload = initializeGame;
